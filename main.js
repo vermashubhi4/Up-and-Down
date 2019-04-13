@@ -8,55 +8,81 @@ canvas.height=window.innerHeight-offset;
 var width=canvas.width;
 var height=canvas.height;
 
-var x=200,y=100,th=7;
-var dx=10,dy=0;
+var x=5,y=5,th=7;
+var dx=5,dy=0;
 ctx.fillStyle="#f13a62";
 ctx.fillRect(x,y,th,th);
 
 var left=37,up=38,right=39,down=40;
-
+var key;
 
 window.onkeydown=function whichKey(event){
-var key = event.keyCode;
+ key = event.keyCode;
+var timer;
   if(key==left)
   {
+      dy=0;
+     clearInterval(timer);
     console.log("left");
-    //dx=-1;
-    //dy=0;
+    dx=-5;
+    dy=0;
+    timer=setInterval(move,100,dx,dy);
     //move();
   }
    if(key==up)
    {
+     dx=0;
+     clearInterval(timer);
      console.log("up");
-     //dy=-1;
-     //dx=0;
+     dy=-5;
+     dx=0;
+     timer=setInterval(move,100,dx,dy);
      //move();
    }
     if(key==right)
     {
+        dy=0;
+      clearInterval(timer);
       console.log("right");
       dx=1;
       dy=0;
-      move(dx,dy);
+      timer=setInterval(move,100,dx,dy);
+      //move(dx,dy);
     }
      if(key==down)
      {
-       console.log("down");
-       dy=1;
        dx=0;
+        clearInterval(timer);
+       dy=5;
+       dx=0;
+
+       console.log("down");
+       timer=setInterval(move,100,dx,dy);
      }
 }
-setInterval(move,1000,dx,dy);
-function move(dx,dy){
+function move(mx,my){
+  console.log(x,y,key);
   ctx.clearRect(x,y,th,th);
-  if(x==width)
-   x=30;
+  if(x==canvas.width)
+  {
+   x=20;
+  }
   if(y==height)
-   y=30;
+  {
+     y=30;
+  }
+  if(x<=0)
+  {
+    x=canvas.width;
+  }
+  if(y==0)
+  {
+     y=canvas.height;
+  }
 
   ctx.fillStyle="#f13a62";
-  x=x+dx;
-  y=y+dy;
+  x=x+mx;
+  y=y+my;
   ctx.fillRect(x,y,th,th);
 
 }
