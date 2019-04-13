@@ -10,13 +10,30 @@ var height=canvas.height;
 console.log(canvas.width, canvas.height);
 var x=5,y=5,th=15;
 var dx=5,dy=0;
-ctx.fillStyle="#f13a62";
-ctx.fillRect(x,y,th,th);
 
 var left=37,up=38,right=39,down=40;
 var key;
 var timer;
 var speed=0;
+
+var foodx,foody,foodth=15;
+
+
+ctx.fillStyle="#f13a62";
+ctx.fillRect(x,y,th,th);
+
+//min = Math.ceil(20);
+//max = Math.floor(750);
+foodx=Math.floor(Math.random()*(730));
+
+//min = Math.ceil(20);
+//max = Math.floor(580);
+foody=Math.floor(Math.random()*(500));
+
+console.log(foodx,foody);
+ctx.fillStyle="#D0D3D4";
+ctx.fillRect(foodx,foody,foodth,foodth);
+
 
 window.onkeydown=function whichKey(event){
  key = event.keyCode;
@@ -25,7 +42,7 @@ window.onkeydown=function whichKey(event){
   {
       dy=0;
      clearInterval(timer);
-    console.log("left");
+    //console.log("left");
     dx=-3;
     dy=0;
     timer=setInterval(move,speed,dx,dy);
@@ -35,7 +52,7 @@ window.onkeydown=function whichKey(event){
    {
      dx=0;
      clearInterval(timer);
-     console.log("up");
+     //console.log("up");
      dy=-3;
      dx=0;
      timer=setInterval(move,speed,dx,dy);
@@ -45,7 +62,7 @@ window.onkeydown=function whichKey(event){
     {
         dy=0;
       clearInterval(timer);
-      console.log("right");
+      //console.log("right");
       dx=3;
       dy=0;
       timer=setInterval(move,speed,dx,dy);
@@ -58,12 +75,12 @@ window.onkeydown=function whichKey(event){
        dy=3;
        dx=0;
 
-       console.log("down");
+       //console.log("down");
        timer=setInterval(move,speed,dx,dy);
      }
 }
 function move(mx,my){
-  console.log(x,y,key);
+  //console.log(x,y,key);
   ctx.clearRect(x,y,th,th);
   if(x>=canvas.width)
   {
@@ -82,9 +99,23 @@ function move(mx,my){
      y=canvas.height;
   }
 
+if(x+th>=foodx && x+th<=foodx+foodth && y+th>=foody && y+th<=foody+foodth)
+{
+  eat();
+}
   ctx.fillStyle="#f13a62";
   x=x+mx;
   y=y+my;
   ctx.fillRect(x,y,th,th);
+}
 
+function eat()
+{
+  console.log("eat");
+  ctx.clearRect(foodx,foody,foodth,foodth);
+  foodx=Math.floor(Math.random()*(730));
+  foody=Math.floor(Math.random()*(500));
+  console.log(foodx,foody);
+  ctx.fillStyle="#D0D3D4";
+  ctx.fillRect(foodx,foody,foodth,foodth);
 }
