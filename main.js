@@ -15,10 +15,11 @@ ctx.fillRect(x,y,th,th);
 
 var left=37,up=38,right=39,down=40;
 var key;
+var timer;
 
 window.onkeydown=function whichKey(event){
  key = event.keyCode;
-var timer;
+
   if(key==left)
   {
       dy=0;
