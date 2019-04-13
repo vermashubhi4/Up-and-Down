@@ -7,8 +7,8 @@ canvas.height=window.innerHeight-offset;
 
 var width=canvas.width;
 var height=canvas.height;
-
-var x=5,y=5,th=7;
+console.log(canvas.width, canvas.height);
+var x=5,y=5,th=15;
 var dx=5,dy=0;
 ctx.fillStyle="#f13a62";
 ctx.fillRect(x,y,th,th);
@@ -16,6 +16,7 @@ ctx.fillRect(x,y,th,th);
 var left=37,up=38,right=39,down=40;
 var key;
 var timer;
+var speed=10;
 
 window.onkeydown=function whichKey(event){
  key = event.keyCode;
@@ -27,7 +28,7 @@ window.onkeydown=function whichKey(event){
     console.log("left");
     dx=-5;
     dy=0;
-    timer=setInterval(move,100,dx,dy);
+    timer=setInterval(move,speed,dx,dy);
     //move();
   }
    if(key==up)
@@ -37,7 +38,7 @@ window.onkeydown=function whichKey(event){
      console.log("up");
      dy=-5;
      dx=0;
-     timer=setInterval(move,100,dx,dy);
+     timer=setInterval(move,speed,dx,dy);
      //move();
    }
     if(key==right)
@@ -45,9 +46,9 @@ window.onkeydown=function whichKey(event){
         dy=0;
       clearInterval(timer);
       console.log("right");
-      dx=1;
+      dx=5;
       dy=0;
-      timer=setInterval(move,100,dx,dy);
+      timer=setInterval(move,speed,dx,dy);
       //move(dx,dy);
     }
      if(key==down)
@@ -58,19 +59,19 @@ window.onkeydown=function whichKey(event){
        dx=0;
 
        console.log("down");
-       timer=setInterval(move,100,dx,dy);
+       timer=setInterval(move,speed,dx,dy);
      }
 }
 function move(mx,my){
   console.log(x,y,key);
   ctx.clearRect(x,y,th,th);
-  if(x==canvas.width)
+  if(x==canvas.width-1)
   {
    x=20;
   }
   if(y==height)
   {
-     y=30;
+     y=5;
   }
   if(x<=0)
   {
