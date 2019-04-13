@@ -16,7 +16,7 @@ ctx.fillRect(x,y,th,th);
 var left=37,up=38,right=39,down=40;
 var key;
 var timer;
-var speed=10;
+var speed=0;
 
 window.onkeydown=function whichKey(event){
  key = event.keyCode;
@@ -26,7 +26,7 @@ window.onkeydown=function whichKey(event){
       dy=0;
      clearInterval(timer);
     console.log("left");
-    dx=-5;
+    dx=-3;
     dy=0;
     timer=setInterval(move,speed,dx,dy);
     //move();
@@ -36,7 +36,7 @@ window.onkeydown=function whichKey(event){
      dx=0;
      clearInterval(timer);
      console.log("up");
-     dy=-5;
+     dy=-3;
      dx=0;
      timer=setInterval(move,speed,dx,dy);
      //move();
@@ -46,7 +46,7 @@ window.onkeydown=function whichKey(event){
         dy=0;
       clearInterval(timer);
       console.log("right");
-      dx=5;
+      dx=3;
       dy=0;
       timer=setInterval(move,speed,dx,dy);
       //move(dx,dy);
@@ -55,7 +55,7 @@ window.onkeydown=function whichKey(event){
      {
        dx=0;
         clearInterval(timer);
-       dy=5;
+       dy=3;
        dx=0;
 
        console.log("down");
@@ -65,11 +65,11 @@ window.onkeydown=function whichKey(event){
 function move(mx,my){
   console.log(x,y,key);
   ctx.clearRect(x,y,th,th);
-  if(x==canvas.width-1)
+  if(x>=canvas.width)
   {
    x=20;
   }
-  if(y==height)
+  if(y>=height)
   {
      y=5;
   }
@@ -77,7 +77,7 @@ function move(mx,my){
   {
     x=canvas.width;
   }
-  if(y==0)
+  if(y<=0)
   {
      y=canvas.height;
   }
