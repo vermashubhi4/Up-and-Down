@@ -99,7 +99,9 @@ function move(mx,my){
      y=canvas.height;
   }
 
-if(x+th>=foodx && x+th<=foodx+foodth && y+th>=foody && y+th<=foody+foodth)
+if((x+th>=foodx && x+th<=foodx+foodth && y+th>=foody && y+th<=foody+foodth)
+|| (x+th>=foody && x+th<=foody+foodth && y+th>=foodx && y+th<=foody+foodth)
+|| (x>=foodx && x<=foodx+foodth && y>=foody && y<=foody+foodth))
 {
   eat();
 }
