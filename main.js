@@ -99,13 +99,34 @@ function move(mx,my){
      y=canvas.height;
   }
 
-if((x+th>=foodx && x+th<=foodx+foodth && y+th>=foody && y+th<=foody+foodth)
-|| (x+th>=foody && x+th<=foody+foodth && y+th>=foodx && y+th<=foody+foodth)
-|| (x>=foodx && x<=foodx+foodth && y>=foody && y<=foody+foodth)
-|| (x>=foody && x<=foody+foodth && y>=foodx && y<=foody+foodth))
-{
-  eat();
-}
+  if((x>=foodx && x<=foodx+foodth) && (y>=foody && y<=foody+foodth))
+   {
+     console.log("eat1");
+     console.log(foodx,foody,foodx+foodth,foody+foodth);
+     console.log(x,y,x+th,y+th);
+       eat();
+   }
+  if(x+th>=foodx && y>=foody && x+th<=foodx+foodth && y<=foody+foodth)
+  {
+    console.log("eat2");
+    console.log(foodx,foody,foodx+foodth,foody+foodth);
+    console.log(x,y,x+th,y+th);
+      eat();
+  }
+  if(x>=foodx && y+th>=foody && x<=foodx+foodth && y+th<=foody+foodth)
+  {
+    console.log("eat3");
+    console.log(foodx,foody,foodx+foodth,foody+foodth);
+    console.log(x,y,x+th,y+th);
+      eat();
+  }
+  if( x+th>=foodx && x+th<=foodx+foodth && y+th>=foody && y+th<=foody+foodth)
+  {
+    console.log("eat4");
+    console.log(foodx,foody,foodx+foodth,foody+foodth);
+    console.log(x,y,x+th,y+th);
+      eat();
+  }
   ctx.fillStyle="#f13a62";
   x=x+mx;
   y=y+my;
