@@ -7,7 +7,17 @@ html,body{
 }
 
 #canvas{
-  border: 1px solid white;
-  margin-left: 20px;
-  margin-top: 20px;
+  border: 1px solid #F4D03F;
+  margin-left: 10px;
+  margin-top: 10px;
+  padding: 0;
+}
+
+#Score1{
+  text-align:right;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  margin-right: 30px;
+  padding: 0px;
+  color: #43CEFC;
 }

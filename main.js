@@ -20,7 +20,7 @@ var foodx,foody,foodth=15;
 var snakex=[x];
 var snakey=[y];
 var count=0;
-var arrlen;
+var score=document.getElementById('score');
 
 
 ctx.fillStyle="#f13a62";
@@ -65,16 +65,18 @@ window.onkeydown=function whichKey(event){
 
 function move(){
   var i;
-
+  //count=count+1;
   //console.log(x,y,key);
-  ctx.clearRect(snakex[snakex.length-1],snakey[snakey.length-1],th,th);
-  if(snakex[0]>=canvas.width)
+//  if(count!=1)
+   ctx.clearRect(snakex[snakex.length-1],snakey[snakey.length-1],th,th);
+
+  if(snakex[0]>canvas.width)
   {
-   snakex[0]=1;
+   snakex[0]=0;
   }
-  if(snakey[0]>=canvas.height)
+  if(snakey[0]>canvas.height)
   {
-     snakey[0]=1;
+     snakey[0]=0;
   }
   if(snakex[0]<0 )
   {
@@ -123,10 +125,13 @@ if((snakex[0]>=foodx && snakex[0]<=foodx+foodth && snakey[0]>=foody && snakey[0]
  }
 
 }
-
+//var c=0;
 function eat()
 {
+  count=count+100;
+  score.innerHTML=count;
   console.log("eat");
+
 //  console.log(foodx,foody,foodx+foodth,foody+foodth);
 //  console.log(x,y,x+th,y+th);
   snakex.push(snakex[snakex.length-1]-15);
