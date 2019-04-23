@@ -11,10 +11,10 @@ console.log(canvas.width, canvas.height);
 var x=5,y=5,th=15;
 var dx=15,dy=0;
 
-var left=37,up=38,right=39,down=40;
+var left=37,up=38,right=39,down=40,space=32;
 var key;
 var timer;
-var speed=70;
+var speed=50;
 
 var foodx,foody,foodth=15;
 var snakex=[x];
@@ -27,8 +27,8 @@ ctx.fillStyle="#f13a62";
 ctx.fillRect(snakex[0],snakey[0],th,th);
 timer=setInterval(move,speed);
 
-foodx=Math.floor(Math.random()*(730));
-foody=Math.floor(Math.random()*(500));
+foodx=Math.floor(Math.random()*(1320));
+foody=Math.floor(Math.random()*(580));
 
 ctx.fillStyle="#D0D3D4";
 ctx.fillRect(foodx,foody,foodth,foodth);
@@ -39,27 +39,50 @@ window.onkeydown=function whichKey(event){
 
   if(key==left && lastKey!=right)
   {
+    if(lastKey==space)
+    {
+      timer=setInterval(move,speed);
+    }
     lastKey=key;
     dx=-15;
     dy=0;
   }
    if(key==up && lastKey!=down)
    {
+     if(lastKey==space)
+     {
+       timer=setInterval(move,speed);
+     }
      lastKey=key;
      dy=-15;
      dx=0;
+
    }
     if(key==right && lastKey!=left)
     {
+      if(lastKey==space)
+      {
+        timer=setInterval(move,speed);
+      }
       lastKey=key;
       dx=15;
       dy=0;
+
     }
      if(key==down && lastKey!=up)
      {
+       if(lastKey==space)
+       {
+         timer=setInterval(move,speed);
+       }
         lastKey=key;
        dy=15;
        dx=0;
+
+     }
+     if(key==space)
+     {
+       clearInterval(timer);
      }
 }
 
@@ -70,6 +93,8 @@ function move(){
 //  if(count!=1)
    ctx.clearRect(snakex[snakex.length-1],snakey[snakey.length-1],th,th);
 
+   snakex[0]=snakex[0]+dx;
+   snakey[0]=snakey[0]+dy;
   if(snakex[0]>canvas.width)
   {
    snakex[0]=0;
@@ -149,4 +174,8 @@ function eat()
   ctx.fillRect(foodx,foody,foodth,foodth);
   /*ctx.fillStyle="#f13a62";
   ctx.fillRect(snakex[index],snakey[index],th,th);*/
+}
+var cvSave;
+function pause(){
+  ctx.save();
 }
