@@ -8,7 +8,7 @@ canvas.height=window.innerHeight-offset;
 var width=canvas.width;
 var height=canvas.height;
 console.log(canvas.width, canvas.height);
-var x=5,y=5,th=15;
+var x=5,y=5,th=10;
 var dx=15,dy=0;
 
 var left=37,up=38,right=39,down=40,space=32;
@@ -23,16 +23,18 @@ var count=0;
 var score=document.getElementById('score');
 
 
-ctx.fillStyle="#f13a62";
+ctx.fillStyle="#148F77";
 ctx.fillRect(snakex[0],snakey[0],th,th);
 timer=setInterval(move,speed);
 
 foodx=Math.floor(Math.random()*(1320));
 foody=Math.floor(Math.random()*(580));
 
-ctx.fillStyle="#D0D3D4";
+ctx.fillStyle="#D32802";
 ctx.fillRect(foodx,foody,foodth,foodth);
 var lastKey=left;
+
+
 
 window.onkeydown=function whichKey(event){
  key = event.keyCode;
@@ -82,6 +84,7 @@ window.onkeydown=function whichKey(event){
      }
      if(key==space)
      {
+       lastKey=key;
        clearInterval(timer);
      }
 }
@@ -127,6 +130,9 @@ function move(){
      console.log("y by",snakey);
   }
 
+  ctx.fillStyle="#148F77";
+  ctx.fillRect(snakex[0],snakey[0],th,th);
+
 
 if((snakex[0]>=foodx && snakex[0]<=foodx+foodth && snakey[0]>=foody && snakey[0]<=foody+foodth)
   ||(snakex[0]+th>=foodx && snakey[0]+th>=foody && snakex[0]+th<=foodx+foodth && snakey[0]<=foody+foodth)
@@ -135,19 +141,31 @@ if((snakex[0]>=foodx && snakex[0]<=foodx+foodth && snakey[0]>=foody && snakey[0]
   )
  {
      eat();
+     console.log(snakex);
+     console.log(snakey)
  }
- snakex[0]=snakex[0]+dx;
- snakey[0]=snakey[0]+dy;
- ctx.fillStyle="#f13a62";
+ // snakex[0]=snakex[0]+dx;
+ // snakey[0]=snakey[0]+dy;
+ ctx.fillStyle="#148F77";
  ctx.fillRect(snakex[0],snakey[0],th,th);
-
  for(i=snakex.length-1;i>0;i--)
  {
-   snakex[i]=snakex[i-1];
-   snakey[i]=snakey[i-1];
-   ctx.fillStyle="#f13a62";
+   // console.log(snakex);
+   // console.log(snakey)
+   console.log(i);
+     snakex[i]=snakex[i-1];
+     snakey[i]=snakey[i-1];
+   ctx.fillStyle="#148F77";
    ctx.fillRect(snakex[i],snakey[i],th,th);
+      console.log(i);
  }
+ // ctx.fillStyle="#148F77";
+ // ctx.fillRect(snakex[0],snakey[0],th,th);
+ //snakex[0]=snakex[0]+dx;
+ //snakey[0]=snakey[0]+dy;
+
+ // ctx.fillStyle="#148F77";
+ //ctx.fillRect(snakex[0],snakey[0],th,th);
 
 }
 //var c=0;
@@ -161,8 +179,11 @@ function eat()
 //  console.log(x,y,x+th,y+th);
   snakex.push(snakex[snakex.length-1]-15);
   snakey.push(snakey[snakey.length-1]);
-  console.log(snakex);
-  console.log(snakey);
+
+  console.log(snakex.length);
+  //console.log(snakex);
+  //console.log(snakey);
+
   //console.log(snakex[snakex.length-1]);
   //console.log(snakex[snakey.length-1]);
   //index=index+1;
@@ -170,12 +191,8 @@ function eat()
   foodx=Math.floor(Math.random()*(730));
   foody=Math.floor(Math.random()*(500));
   //console.log(foodx,foody);
-  ctx.fillStyle="#D0D3D4";
+  ctx.fillStyle="#D32802";
   ctx.fillRect(foodx,foody,foodth,foodth);
   /*ctx.fillStyle="#f13a62";
   ctx.fillRect(snakex[index],snakey[index],th,th);*/
-}
-var cvSave;
-function pause(){
-  ctx.save();
 }
