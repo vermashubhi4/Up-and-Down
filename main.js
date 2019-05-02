@@ -255,5 +255,5 @@ function die()
   timer=0;
   ctx.fillStyle="Red";
   ctx.font="60px Arial";
-  ctx.fillText("Game Over",camvas.width/2,camvas.height/2);
+  ctx.fillText("Game Over",camvas.width/2,canvas.height/2);
 }
