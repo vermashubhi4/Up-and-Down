@@ -8,7 +8,7 @@ canvas.height=window.innerHeight-offset;
 var width=canvas.width;
 var height=canvas.height;
 console.log(canvas.width, canvas.height);
-var x=5,y=5,th=10;
+var x=5,y=5,th=15;
 var dx=15,dy=0;
 
 var left=37,up=38,right=39,down=40,space=32;
@@ -25,6 +25,8 @@ var score=document.getElementById('score');
 
 ctx.fillStyle="#148F77";
 ctx.fillRect(snakex[0],snakey[0],th,th);
+ctx.fillStyle="#282c34";
+ctx.fillRect(snakex[0],snakey[0],2,th);
 timer=setInterval(move,speed);
 
 foodx=Math.floor(Math.random()*(1320));
@@ -34,27 +36,38 @@ ctx.fillStyle="#D32802";
 ctx.fillRect(foodx,foody,foodth,foodth);
 var lastKey=left;
 
+function isin(x1,y1,x2,y2)
+{
+  if(x2>=x1 && y2>=y1)
+  {
+    if(x2<=x1+th && y2<=y1+th)
+    {
+      clearInterval(timer);
+      console.log("Game Over");
+    }
+  }
 
+}
 
 window.onkeydown=function whichKey(event){
  key = event.keyCode;
 
   if(key==left && lastKey!=right)
   {
-    if(lastKey==space)
-    {
-      timer=setInterval(move,speed);
-    }
+    // if(lastKey==space)
+    // {
+    //   timer=setInterval(move,speed);
+    // }
     lastKey=key;
     dx=-15;
     dy=0;
   }
    if(key==up && lastKey!=down)
    {
-     if(lastKey==space)
-     {
-       timer=setInterval(move,speed);
-     }
+     // if(lastKey==space)
+     // {
+     //   timer=setInterval(move,speed);
+     // }
      lastKey=key;
      dy=-15;
      dx=0;
@@ -62,10 +75,10 @@ window.onkeydown=function whichKey(event){
    }
     if(key==right && lastKey!=left)
     {
-      if(lastKey==space)
-      {
-        timer=setInterval(move,speed);
-      }
+      // if(lastKey==space)
+      // {
+      //   timer=setInterval(move,speed);
+      // }
       lastKey=key;
       dx=15;
       dy=0;
@@ -73,10 +86,10 @@ window.onkeydown=function whichKey(event){
     }
      if(key==down && lastKey!=up)
      {
-       if(lastKey==space)
-       {
-         timer=setInterval(move,speed);
-       }
+       // if(lastKey==space)
+       // {
+       //   timer=setInterval(move,speed);
+       // }
         lastKey=key;
        dy=15;
        dx=0;
@@ -84,13 +97,23 @@ window.onkeydown=function whichKey(event){
      }
      if(key==space)
      {
+
+       if(timer==0)
+       {
+         timer=setInterval(move,speed);
+       }
+       else {
+         clearInterval(timer);
+         timer=0;
+       }
        lastKey=key;
-       clearInterval(timer);
+
      }
 }
 
 function move(){
   var i;
+
   //count=count+1;
   //console.log(x,y,key);
 //  if(count!=1)
@@ -108,12 +131,12 @@ function move(){
   }
   if(snakex[0]<0 )
   {
-    console.log("x ax",snakex);
-    console.log("x ay",snakey);
+    // console.log("x ax",snakex);
+    // console.log("x ay",snakey);
     //ctx.clearRect(snakex[snakex.length-1],snakey[snakey.length-1],th,th);
     snakex[0]=canvas.width;
-    console.log("x bx",snakex);
-    console.log("x by",snakey);
+    // console.log("x bx",snakex);
+    // console.log("x by",snakey);
   }
   if(snakex[snakex.length-1]<0)
   {
@@ -121,19 +144,28 @@ function move(){
   }
   if(snakey[0]<0)
   {
-    console.log("y ax",snakex);
-    console.log("y ay",snakey);
+    // console.log("y ax",snakex);
+    // console.log("y ay",snakey);
     //ctx.clearRect(snakex[snakex.length-1],snakey[snakey.length-1],th,th);
      snakey[0]=canvas.height;
 
-     console.log("y bx",snakex);
-     console.log("y by",snakey);
+     // console.log("y bx",snakex);
+     // console.log("y by",snakey);
   }
 
   ctx.fillStyle="#148F77";
   ctx.fillRect(snakex[0],snakey[0],th,th);
 
-
+if(lastKey==up || lastKey==down || lastKey==space)
+  {
+  ctx.fillStyle="#282c34";
+  ctx.fillRect(snakex[0],snakey[0],5,5);
+  }
+  if(lastKey==right || lastKey==left || lastKey==space)
+  {
+      ctx.fillStyle="#282c34";
+      ctx.fillRect(snakex[0],snakey[0],5,5);
+  }
 if((snakex[0]>=foodx && snakex[0]<=foodx+foodth && snakey[0]>=foody && snakey[0]<=foody+foodth)
   ||(snakex[0]+th>=foodx && snakey[0]+th>=foody && snakex[0]+th<=foodx+foodth && snakey[0]<=foody+foodth)
   ||(snakex[0]>=foodx && snakey[0]+th>=foody && snakex[0]<=foodx+foodth && snakey[0]+th<=foody+foodth)
@@ -143,6 +175,14 @@ if((snakex[0]>=foodx && snakex[0]<=foodx+foodth && snakey[0]>=foody && snakey[0]
      eat();
      console.log(snakex);
      console.log(snakey)
+ }
+
+ if(snakex.length>=4)
+ {
+   for(i=4;i<snakex.length;i++)
+   {
+     isin(snakex[i],snakey[i],snakex[0],snakey[0]);
+   }
  }
  // snakex[0]=snakex[0]+dx;
  // snakey[0]=snakey[0]+dy;
@@ -157,15 +197,19 @@ if((snakex[0]>=foodx && snakex[0]<=foodx+foodth && snakey[0]>=foody && snakey[0]
      snakey[i]=snakey[i-1];
    ctx.fillStyle="#148F77";
    ctx.fillRect(snakex[i],snakey[i],th,th);
+   if(lastKey==up || lastKey==down || lastKey==space)
+     {
+     ctx.fillStyle="#282c34";
+     ctx.fillRect(snakex[i],snakey[i],5,5);
+     }
+     if(lastKey==right || lastKey==left || lastKey==space)
+     {
+         ctx.fillStyle="#282c34";
+         ctx.fillRect(snakex[i],snakey[i],5,5);
+     }
       console.log(i);
  }
- // ctx.fillStyle="#148F77";
- // ctx.fillRect(snakex[0],snakey[0],th,th);
- //snakex[0]=snakex[0]+dx;
- //snakey[0]=snakey[0]+dy;
 
- // ctx.fillStyle="#148F77";
- //ctx.fillRect(snakex[0],snakey[0],th,th);
 
 }
 //var c=0;
@@ -195,4 +239,21 @@ function eat()
   ctx.fillRect(foodx,foody,foodth,foodth);
   /*ctx.fillStyle="#f13a62";
   ctx.fillRect(snakex[index],snakey[index],th,th);*/
+}
+
+function isin(x1,y1,x2,y2)
+{
+  if(x1<=x2 && x2<=x1+th && y1<=y2 && y2<=y1+th)
+  {
+    die();
+  }
+}
+
+function die()
+{
+  clearInterval(timer);
+  timer=0;
+  ctx.fillStyle="Red";
+  ctx.font="60px Arial";
+  ctx.fillText("Game Over",camvas.width/2,camvas.height/2);
 }
