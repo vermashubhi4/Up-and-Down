@@ -29,25 +29,30 @@ ctx.fillStyle="#282c34";
 ctx.fillRect(snakex[0],snakey[0],2,th);
 timer=setInterval(move,speed);
 
-foodx=Math.floor(Math.random()*(1320));
-foody=Math.floor(Math.random()*(580));
-
+foodx=Math.floor(Math.random()*(canvas.width-5));
+foody=Math.floor(Math.random()*(canvas.height-5));
+//console.log(foodx,foody);
 ctx.fillStyle="#D32802";
 ctx.fillRect(foodx,foody,foodth,foodth);
 var lastKey=[right,right];
 
 function isin(x1,y1,x2,y2)
 {
-  console.log("isin x:",snakex);
-  console.log("isin y:",snakey);
-  if(x2>=x1 && y2>=y1)
+  // console.log("isin x:",snakex);
+  // console.log("isin y:",snakey);
+  if(x2>x1 && x2<x1+th )
   {
-    if(x2<=x1+th && y2<=y1+th)
+    if(y2>y1 && y2<y1+th)
     {
-      clearInterval(timer);
 
-      console.log("Game Over");
-      die();
+      //clearInterval(timer);
+      // console.log(snakex);
+      // console.log(snakey);
+      return 1;
+      // console.log("x:",x1,x2,x1+th);
+      // console.log("y:",y1,y2,y1+th);
+      //console.log("Game Over");
+      //die();
     }
   }
 
@@ -98,17 +103,17 @@ if(timer!=-1){
      }
      if(key==space)
      {
-       console.log("space\n");
+       //console.log("space\n");
       if(timer==0)
        {
-         console.log("spacex");
+        // console.log("spacex");
          timer=setInterval(move,speed);
          clearInterval(timer);
          move();
          timer=setInterval(move,speed);
        }
        else {
-          console.log("spacey");
+        //  console.log("spacey");
          clearInterval(timer);
          timer=0;
        }
@@ -121,8 +126,8 @@ if(timer!=-1){
 function move(){
   var i;
    ctx.clearRect(snakex[snakex.length-1],snakey[snakey.length-1],th,th);
-   console.log("move x:",snakex);
-   console.log("move y: ",snakey);
+   // console.log("move x:",snakex);
+   // console.log("move y: ",snakey);
    snakex[0]=snakex[0]+dx;
    snakey[0]=snakey[0]+dy;
   if(snakex[0]>canvas.width-15)
@@ -149,12 +154,12 @@ function move(){
   ctx.fillStyle="#148F77";
   ctx.fillRect(snakex[0],snakey[0],th,th);
 //Setting color of snake's stipes
-if(lastKey[0]==up || lastKey[0]==down || lastKey[0]==space || lastKey[1]==up || lastKey[1]==down)
+if(lastKey[0]==up || lastKey[0]==down || lastKey[0]==space || lastKey[1]==up || lastKey[1]==down || lastKey[1]==space)
   {
   ctx.fillStyle="#282c34";
   ctx.fillRect(snakex[0],snakey[0],th,2);
   }
-  if(lastKey[0]==right || lastKey[0]==left || lastKey[0]==space ||  lastKey[1]==left || lastKey[1]==right)
+  if(lastKey[0]==right || lastKey[0]==left || lastKey[0]==space ||  lastKey[1]==left || lastKey[1]==right || lastKey[1]==space)
   {
       ctx.fillStyle="#282c34";
       ctx.fillRect(snakex[0],snakey[0],2,th);
@@ -174,7 +179,10 @@ if((snakex[0]>=foodx && snakex[0]<=foodx+foodth && snakey[0]>=foody && snakey[0]
  {
    for(i=4;i<snakex.length;i++)
    {
-     isin(snakex[i],snakey[i],snakex[0],snakey[0]);
+     if(isin(snakex[i],snakey[i],snakex[0],snakey[0]))
+     {
+     die(i);
+     }
    }
  }
 
@@ -187,12 +195,12 @@ if((snakex[0]>=foodx && snakex[0]<=foodx+foodth && snakey[0]>=foody && snakey[0]
 
    ctx.fillStyle="#148F77";
    ctx.fillRect(snakex[i],snakey[i],th,th);
-   if(lastKey[0]==up || lastKey[0]==down || lastKey[0]==space || lastKey[1]==up || lastKey[1]==down )
+   if(lastKey[0]==up || lastKey[0]==down || lastKey[0]==space || lastKey[1]==up || lastKey[1]==down || lastKey[1]==space)
      {
      ctx.fillStyle="#282c34";
      ctx.fillRect(snakex[i],snakey[i],th,2);
      }
-     if(lastKey[0]==right || lastKey[0]==left || lastKey[0]==space ||lastKey[1]==left || lastKey[1]==right)
+     if(lastKey[0]==right || lastKey[0]==left || lastKey[0]==space ||lastKey[1]==left || lastKey[1]==right ||  lastKey[1]==space)
      {
          ctx.fillStyle="#282c34";
          ctx.fillRect(snakex[i],snakey[i],2,th);
@@ -217,6 +225,7 @@ function eat()
   ctx.clearRect(foodx,foody,foodth,foodth);
   foodx=Math.floor(Math.random()*(730));
   foody=Math.floor(Math.random()*(500));
+  //console.log(foodx,foody);
 
   ctx.fillStyle="#D32802";
   ctx.fillRect(foodx,foody,foodth,foodth);
@@ -231,10 +240,9 @@ function eat()
 //   }
 // }
 
-function die()
+function die(i)
 {
-  console.log("die x: ",snakex);
-  console.log("die y: ",snakey);
+  //console.log(i,"x: ",snakex[i],snakex[0],"y: ",snakey[i],snakey[0]);
   clearInterval(timer);
   timer=-1;
   ctx.fillStyle="Red";
