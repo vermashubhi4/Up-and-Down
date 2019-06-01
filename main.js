@@ -36,27 +36,7 @@ ctx.fillStyle="#D32802";
 ctx.fillRect(foodx,foody,foodth,foodth);
 var lastKey=[right,right];
 
-function isin(x1,y1,x2,y2)
-{
-  // console.log("isin x:",snakex);
-  // console.log("isin y:",snakey);
-  if(x2>x1 && x2<x1+th )
-  {
-    if(y2>y1 && y2<y1+th)
-    {
 
-      //clearInterval(timer);
-      // console.log(snakex);
-      // console.log(snakey);
-      return 1;
-      // console.log("x:",x1,x2,x1+th);
-      // console.log("y:",y1,y2,y1+th);
-      //console.log("Game Over");
-      //die();
-    }
-  }
-
-}
 
 window.onkeydown=function whichKey(event){
  key = event.keyCode;
@@ -174,14 +154,18 @@ if((snakex[0]>=foodx && snakex[0]<=foodx+foodth && snakey[0]>=foody && snakey[0]
      // console.log(snakex);
      // console.log(snakey)
  }
-
+var m,n;
  if(snakex.length>=4)
  {
    for(i=4;i<snakex.length;i++)
    {
-     if(isin(snakex[i],snakey[i],snakex[0],snakey[0]))
+      m=snakex[i];
+      n=snakey[i];
+     if(isin(m,n,snakex[0],snakey[0]))
      {
-     die(i);
+       console.log(snakex[i],snakey[i]);
+       die(i);
+       break;
      }
    }
  }
@@ -209,6 +193,31 @@ if((snakex[0]>=foodx && snakex[0]<=foodx+foodth && snakey[0]>=foody && snakey[0]
  }
 
 if(snakex.length==2){eat();}
+}
+
+
+function isin(x1,y1,x2,y2)
+{
+   // console.log("isin x:",snakex);
+   // console.log("isin y:",snakey);
+   // console.log("x:",x1,x2,x1+th);
+   // console.log("y:",y1,y2,y1+th);
+  if(x2>=x1 && y2>=y1 && x2<x1+th && y2<y1+th )
+  {
+
+
+      clearInterval(timer);
+       // console.log(snakex);
+       // console.log(snakey);
+       console.log("x:",x1,x2,x1+th);
+       console.log("y:",y1,y2,y1+th);
+      return 1;
+
+      //console.log("Game Over");
+      //die();
+
+  }
+
 }
 
 function eat()
