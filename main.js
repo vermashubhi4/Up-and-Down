@@ -11,7 +11,7 @@ console.log(canvas.width, canvas.height);
 var x=5,y=5,th=15;
 var dx=15,dy=0;
 
-var left=37,up=38,right=39,down=40,space=32;
+var left=37,up=38,right=39,down=40,space=32,s=83;
 var key;
 var timer;
 var speed=100;
@@ -21,23 +21,28 @@ var snakex=[x];
 var snakey=[y];
 var count=0;
 var score=document.getElementById('score');
+var audio = new Audio('bgmusic.mp3');
+var myVar;
+
+//init();
 
 
+//Generatingsnake's head
 ctx.fillStyle="#148F77";
 ctx.fillRect(snakex[0],snakey[0],th,th);
 ctx.fillStyle="#282c34";
 ctx.fillRect(snakex[0],snakey[0],2,th);
-timer=setInterval(move,speed);
+//timer=setInterval(move,speed);
 
-foodx=Math.floor(Math.random()*(canvas.width-5));
-foody=Math.floor(Math.random()*(canvas.height-5));
-//console.log(foodx,foody);
+//Generating food for the first time
+foodx=Math.floor(Math.random()*(canvas.width-15));
+foody=Math.floor(Math.random()*(canvas.height-15));
 ctx.fillStyle="#D32802";
 ctx.fillRect(foodx,foody,foodth,foodth);
 var lastKey=[right,right];
 
 
-
+//check's which key is pressed
 window.onkeydown=function whichKey(event){
  key = event.keyCode;
 if(timer!=-1){
@@ -48,38 +53,47 @@ if(timer!=-1){
     dx=-15;
     dy=0;
     clearInterval(timer);
+    clearTimeout(myVar);
     move();
     timer=setInterval(move,speed);
+    myVar=setTimeout(checkmusic,100);
   }
-   if(key==up && lastKey[0]!=down)
+   if(key==up && lastKey[0]!=down )
    {
      lastKey[1]=lastKey[0];
      lastKey[0]=key;
      dy=-15;
      dx=0;
      clearInterval(timer);
+     clearTimeout(myVar);
      move();
      timer=setInterval(move,speed);
+     myVar=setTimeout(checkmusic,100);
 
    }
-    if(key==right && lastKey[0]!=left)
+    if(key==right && lastKey[0]!=left )
     {
       lastKey[1]=lastKey[0];
       lastKey[0]=key;
       dx=15;
       dy=0;
-
+      clearInterval(timer);
+      clearTimeout(myVar);
+      move();
+      timer=setInterval(move,speed);
+      myVar=setTimeout(checkmusic,100);
     }
-     if(key==down && lastKey[0]!=up)
+     if(key==down && lastKey[0]!=up )
      {
        lastKey[1]=lastKey[0];
        lastKey[0]=key;
        dy=15;
        dx=0;
        clearInterval(timer);
+       clearTimeout(myVar);
        move();
        timer=setInterval(move,speed);
-
+       myVar=setTimeout(checkmusic,100);
      }
      if(key==space)
      {
@@ -89,27 +103,34 @@ if(timer!=-1){
         // console.log("spacex");
          timer=setInterval(move,speed);
          clearInterval(timer);
+         clearTimeout(myVar)
          move();
          timer=setInterval(move,speed);
+         myVar= setTimeout(checkmusic,100);
        }
        else {
         //  console.log("spacey");
          clearInterval(timer);
          timer=0;
+         clearTimeout(myVar);
+         audio.pause();
        }
        lastKey[1]=lastKey[0];
        lastKey[0]=key;
      }
+
    }
 }
 
+//responsible for movement of snake.
 function move(){
+
   var i;
    ctx.clearRect(snakex[snakex.length-1],snakey[snakey.length-1],th,th);
-   // console.log("move x:",snakex);
-   // console.log("move y: ",snakey);
    snakex[0]=snakex[0]+dx;
    snakey[0]=snakey[0]+dy;
+
+   //Condtions to handle snake when it enters any of the 4 boundaries.
   if(snakex[0]>canvas.width-15)
   {
    snakex[0]=0;
@@ -133,7 +154,7 @@ function move(){
 //Setting color of snake to green
   ctx.fillStyle="#148F77";
   ctx.fillRect(snakex[0],snakey[0],th,th);
-//Setting color of snake's stipes
+//Setting color of snake's stripes
 if(lastKey[0]==up || lastKey[0]==down || lastKey[0]==space || lastKey[1]==up || lastKey[1]==down || lastKey[1]==space)
   {
   ctx.fillStyle="#282c34";
@@ -144,6 +165,8 @@ if(lastKey[0]==up || lastKey[0]==down || lastKey[0]==space || lastKey[1]==up || 
       ctx.fillStyle="#282c34";
       ctx.fillRect(snakex[0],snakey[0],2,th);
   }
+
+  //calls eat();
 if((snakex[0]>=foodx && snakex[0]<=foodx+foodth && snakey[0]>=foody && snakey[0]<=foody+foodth)
   ||(snakex[0]+th>=foodx && snakey[0]+th>=foody && snakex[0]+th<=foodx+foodth && snakey[0]<=foody+foodth)
   ||(snakex[0]>=foodx && snakey[0]+th>=foody && snakex[0]<=foodx+foodth && snakey[0]+th<=foody+foodth)
@@ -151,10 +174,10 @@ if((snakex[0]>=foodx && snakex[0]<=foodx+foodth && snakey[0]>=foody && snakey[0]
   )
  {
      eat();
-     // console.log(snakex);
-     // console.log(snakey)
  }
+
 var m,n;
+//calls isin to check if snake's head doesn't eat its body
  if(snakex.length>=4)
  {
    for(i=4;i<snakex.length;i++)
@@ -169,9 +192,10 @@ var m,n;
      }
    }
  }
-
+//putting snake's head on screen
  ctx.fillStyle="#148F77";
  ctx.fillRect(snakex[0],snakey[0],th,th);
+ //putting snake's body on screen
  for(i=snakex.length-1;i>0;i--)
  {
      snakex[i]=snakex[i-1];
@@ -191,70 +215,69 @@ var m,n;
      }
 
  }
+//jugaad
+if(snakex.length==2){eat();}//this was added so that snake's body grows on first eat also
 
-if(snakex.length==2){eat();}
 }
 
-
+//Checks if snake's head touches its own body
+//x2 & y2 are snake's head's coordinates
 function isin(x1,y1,x2,y2)
 {
-   // console.log("isin x:",snakex);
-   // console.log("isin y:",snakey);
-   // console.log("x:",x1,x2,x1+th);
-   // console.log("y:",y1,y2,y1+th);
   if(x2>=x1 && y2>=y1 && x2<x1+th && y2<y1+th )
   {
-
-
       clearInterval(timer);
-       // console.log(snakex);
-       // console.log(snakey);
-       console.log("x:",x1,x2,x1+th);
-       console.log("y:",y1,y2,y1+th);
+       // console.log("x:",x1,x2,x1+th);
+       // console.log("y:",y1,y2,y1+th);
       return 1;
-
-      //console.log("Game Over");
-      //die();
 
   }
 
 }
-
+//Eating food
 function eat()
 {
-  count=count+100;
-  score.innerHTML=count;
-//  console.log("eat");
 
-  snakex.push(snakex[snakex.length-1]-15);
-  snakey.push(snakey[snakey.length-1]);
+  count=count+100;//Increasing score byy 100 each time snake eats
+  score.innerHTML=count;//setting the score equal to count to be displayed on screen
 
-  //console.log(snakex.length);
 
-  ctx.clearRect(foodx,foody,foodth,foodth);
+  snakex.push(snakex[snakex.length-1]-15);//pushing new value to snakex holding x values of snake's body
+  snakey.push(snakey[snakey.length-1]);//pushing new value to snakey holding y values of snake's body
+
+
+  ctx.clearRect(foodx,foody,foodth,foodth);//Removes food once eaten
+  //Generating new food
   foodx=Math.floor(Math.random()*(730));
   foody=Math.floor(Math.random()*(500));
-  //console.log(foodx,foody);
-
   ctx.fillStyle="#D32802";
   ctx.fillRect(foodx,foody,foodth,foodth);
 
 }
 
-// function isin(x1,y1,x2,y2)
-// {
-//   if(x1<=x2 && x2<=x1+th && y1<=y2 && y2<=y1+th)
-//   {
-//     die();
-//   }
-// }
 
+//End Game
 function die(i)
 {
-  //console.log(i,"x: ",snakex[i],snakex[0],"y: ",snakey[i],snakey[0]);
   clearInterval(timer);
+  clearTimeout(myVar);
+  audio.pause();
   timer=-1;
   ctx.fillStyle="Red";
-  ctx.font="60px Arial";
-  ctx.fillText("Game Over",canvas.width/2,canvas.height/2);
+  ctx.font="100px Comic Sans";
+  ctx.fillText("Game Over",width/2-200,height/2);
+}
+
+function checkmusic()
+{
+  console.log(audio.readyState);
+  if(audio.readyState==4){
+    console.log("in audio");
+  audio.play();
+  }
+  else {
+    setTimeout(checkmusic,100)
+  }
+  //audio.loop=true;}
+  // clearTimeout(myVar);
 }
