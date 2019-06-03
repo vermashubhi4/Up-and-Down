@@ -240,7 +240,8 @@ function eat()
 
   count=count+100;//Increasing score byy 100 each time snake eats
   score.innerHTML=count;//setting the score equal to count to be displayed on screen
-
+  if(count%1500==0 && speed>30)
+   speed=speed-10;
 
   snakex.push(snakex[snakex.length-1]-15);//pushing new value to snakex holding x values of snake's body
   snakey.push(snakey[snakey.length-1]);//pushing new value to snakey holding y values of snake's body
@@ -276,7 +277,7 @@ function checkmusic()
   audio.play();
   }
   else {
-    setTimeout(checkmusic,100)
+    setTimeout(checkmusic,1000)
   }
   //audio.loop=true;}
   // clearTimeout(myVar);
