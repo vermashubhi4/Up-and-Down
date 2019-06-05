@@ -4,10 +4,50 @@
     <meta charset="utf-8">
     <title>Up and Down</title>
     <link rel="stylesheet" href="main.css">
-  </head>
-  <body>
+    <!-- Compiled and minified CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+<!-- Compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+<!--Import Google Icon Font-->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
+<script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+
+
+  </head >
+  <body >
+    <div id="header">
+    <div id="name"><b>Hello, <span id="namespan"> </span></b></div>
     <div id="Score1"><b> Score: </b><span id="score"><b>0</b></span> </div>
+  </div>
+     <!-- Modal Structure -->
+
+    <div id="modal1" class="modal fade">
+        <div class="modal-dialog">
+    <div class="modal-content">
+      <b>Enter your name:</b> <input id="fname" type="text" name="fname" value="Player">
+
+    </div>
+    <div class="modal-footer" >
+      <div class="wrapper">
+      <button id="btn" class="modal-close btn waves-effect waves-light"  onclick="dismiss()" >LET's PLAY
+      <i class="modal-close material-icons right">send</i>
+  </button>
+</div>
+    </div>
+  </div>
+  </div>
+  <script type="text/javascript">
+      $(window).ready(function(){
+          $("#modal1").modal('show');
+      });
+  </script>
     <canvas id="canvas"></canvas>
+
     <script  src="main.js"></script>
   </body>
 </html>

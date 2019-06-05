@@ -22,9 +22,35 @@ var snakey=[y];
 var count=0;
 var score=document.getElementById('score');
 var audio = new Audio('bgmusic.mp3');
-var myVar;
-
+var myVar,elems;
+//var modal=document.querySelectorAll('.modal');
 //init();
+//modal addEventListener
+window.addEventListener('DOMContentLoaded', function() {
+     elems = document.querySelectorAll('.modal');
+     var instances = M.Modal.init(elems, {
+      opacity:0.5,
+      inDuration:100,
+      outDuration:100,
+    });
+    // var instance = M.Modal.getInstance(elems);
+    // instance.open();
+  });
+
+  $(function() {
+
+     $('#btn').click(function() {
+       $('#modal1').modal('hide');
+      });
+  });
+
+function dismiss()
+{
+
+  myVar=setTimeout(checkmusic,100);
+  timer=setInterval(move,speed);
+  namespan.innerHTML=document.getElementById('fname').value;
+}
 
 
 //Generatingsnake's head
@@ -53,10 +79,10 @@ if(timer!=-1){
     dx=-15;
     dy=0;
     clearInterval(timer);
-    clearTimeout(myVar);
+    //clearTimeout(myVar);
     move();
     timer=setInterval(move,speed);
-    myVar=setTimeout(checkmusic,100);
+    //myVar=setTimeout(checkmusic,100);
   }
    if(key==up && lastKey[0]!=down )
    {
@@ -65,10 +91,10 @@ if(timer!=-1){
      dy=-15;
      dx=0;
      clearInterval(timer);
-     clearTimeout(myVar);
+     //clearTimeout(myVar);
      move();
      timer=setInterval(move,speed);
-     myVar=setTimeout(checkmusic,100);
+     //myVar=setTimeout(checkmusic,100);
 
    }
     if(key==right && lastKey[0]!=left )
@@ -78,10 +104,10 @@ if(timer!=-1){
       dx=15;
       dy=0;
       clearInterval(timer);
-      clearTimeout(myVar);
+      //clearTimeout(myVar);
       move();
       timer=setInterval(move,speed);
-      myVar=setTimeout(checkmusic,100);
+      //myVar=setTimeout(checkmusic,100);
     }
      if(key==down && lastKey[0]!=up )
      {
@@ -90,10 +116,10 @@ if(timer!=-1){
        dy=15;
        dx=0;
        clearInterval(timer);
-       clearTimeout(myVar);
+       //clearTimeout(myVar);
        move();
        timer=setInterval(move,speed);
-       myVar=setTimeout(checkmusic,100);
+       //myVar=setTimeout(checkmusic,100);
      }
      if(key==space)
      {
