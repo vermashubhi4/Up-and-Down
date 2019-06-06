@@ -354,7 +354,8 @@ function die(i)
   audio.pause();
   timer=-1;
 
-
+  clearInterval(vartimer);
+  vartimer=0;
   // ctx.fillStyle="Red";
   // ctx.font="100px Comic Sans";
   // ctx.fillText("Game Over",width/2-200,height/2);
