@@ -22,6 +22,7 @@
   <body >
     <div id="header">
     <div id="name"><b>Hello, <span id="namespan"> </span></b></div>
+
     <div id="Score1"><b> Score: </b><span id="score"><b>0</b></span> </div>
   </div>
      <!-- Modal Structure -->
@@ -41,6 +42,22 @@
     </div>
   </div>
   </div>
+
+  <!--@nd modal for GAME OVER-->
+  <div id="modal2" class="modal fade">
+      <div class="modal-dialog">
+  <div class="modal-content">
+    <h1>GAME OVER :(</h1>
+  </div>
+  <div class="modal-footer" >
+    <div class="wrapper">
+    <button  id="btn1" class="modal-close btn waves-effect waves-light" onclick="init()" >  PLAY
+    <i class="modal-close material-icons right"></i>
+</button>
+</div>
+  </div>
+</div>
+</div>
   <script type="text/javascript">
       $(window).ready(function(){
           $("#modal1").modal('show');
