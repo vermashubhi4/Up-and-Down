@@ -21,15 +21,18 @@ var snakex=[x];
 var snakey=[y];
 var count=0;
 var score=document.getElementById('score');
+
 var audio = new Audio('bgmusic.mp3');
 var myVar,elems;
+
+
 //var modal=document.querySelectorAll('.modal');
 //init();
 //modal addEventListener
 window.addEventListener('DOMContentLoaded', function() {
      elems = document.querySelectorAll('.modal');
      var instances = M.Modal.init(elems, {
-      opacity:0.5,
+      opacity:1,
       inDuration:100,
       outDuration:100,
     });
@@ -266,6 +269,7 @@ function eat()
 
   count=count+100;//Increasing score byy 100 each time snake eats
   score.innerHTML=count;//setting the score equal to count to be displayed on screen
+
   if(count%1500==0 && speed>30)
    speed=speed-10;
 
@@ -281,18 +285,47 @@ function eat()
   ctx.fillRect(foodx,foody,foodth,foodth);
 
 }
+$(function() {
 
+   $('#btn1').click(function() {
+     $('#modal2').modal('hide');
+    });
+});
 
+// function reset()
+// {
+//   init();
+// }
 //End Game
 function die(i)
 {
+
+  // console.log(snakex.length);
+  // console.log(snakey);
+// var j;
+//   for(j=snakex.length;j>=0;j--)
+//   {
+//     console.log("clear snake body");
+//     ctx.fillStyle="#282c34";
+//     ctx.fillRect(snakex[j],snakey[j],th,th);
+//     snakex.pop();
+//     snakey.pop();
+//   }
+  // console.log(snakex);
+  //   ctx.clearRect(foodx, foody, foodth, foodth);
+
+  $(window).ready(function(){
+      $("#modal2").modal('show');
+  });
   clearInterval(timer);
   clearTimeout(myVar);
   audio.pause();
   timer=-1;
-  ctx.fillStyle="Red";
-  ctx.font="100px Comic Sans";
-  ctx.fillText("Game Over",width/2-200,height/2);
+
+
+  // ctx.fillStyle="Red";
+  // ctx.font="100px Comic Sans";
+  // ctx.fillText("Game Over",width/2-200,height/2);
 }
 
 function checkmusic()
@@ -307,4 +340,9 @@ function checkmusic()
   }
   //audio.loop=true;}
   // clearTimeout(myVar);
+}
+
+
+function init() {
+  location.reload();
 }
