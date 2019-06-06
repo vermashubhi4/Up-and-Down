@@ -20,22 +20,26 @@
 
   </head >
   <body >
-    <div id="header">
-    <div id="name"><b>Hello, <span id="namespan"> </span></b></div>
-
-    <div id="Score1"><b> Score: </b><span id="score"><b>0</b></span> </div>
-  </div>
+    <ul id="header">
+    <li id="name"><b>Hello, <span id="namespan"> </span></b></li>
+    <li id="timer"><b><label class="label" id="hours">00</label></b>:
+      <b><label class="label" id="minutes"><b>00</b></label></b>:
+      <b><label class="label" id="seconds"><b>00</b></label></b></li>
+    <li id="Score1"><b>Score:</b><span id="score"><b> 0 </b></span> </li>
+  </ul>
      <!-- Modal Structure -->
 
-    <div id="modal1" class="modal fade">
+    <div id="modal1" class="modal  modal-backdrop">
         <div class="modal-dialog">
     <div class="modal-content">
-      <b>Enter your name:</b> <input id="fname" type="text" name="fname" value="Player">
+      <h4 id="yourname">Your Name </h4>
+      <input id="fname" type="text" name="fname" value="Player">
 
     </div>
     <div class="modal-footer" >
       <div class="wrapper">
-      <button id="btn" class="modal-close btn waves-effect waves-light"  onclick="dismiss()" >LET's PLAY
+        <br>
+      <button id="btn" class="modal-close btn waves-effect waves-light"  onclick="dismiss()" >LET THE GAME BEGIN
       <i class="modal-close material-icons right">send</i>
   </button>
 </div>
@@ -44,14 +48,17 @@
   </div>
 
   <!--@nd modal for GAME OVER-->
-  <div id="modal2" class="modal fade">
+  <div id="modal2" class="modal fade modal-backdrop">
       <div class="modal-dialog">
   <div class="modal-content">
-    <h1>GAME OVER :(</h1>
+    <h1 id="go">GAME OVER :(</h1>
+    <p id="goscore"><b>Your Score:</b><span id="yourscore"><b></b></span></p>
+    <br/>
+    <p><b id="hit">Hit the button to Replay!</b></p>
   </div>
   <div class="modal-footer" >
     <div class="wrapper">
-    <button  id="btn1" class="modal-close btn waves-effect waves-light" onclick="init()" >  PLAY
+    <button  id="btn1" class="modal-close btn waves-effect waves-light" onclick="init()" >DON'T PANIC, RE-PLAY
     <i class="modal-close material-icons right"></i>
 </button>
 </div>
@@ -61,6 +68,7 @@
   <script type="text/javascript">
       $(window).ready(function(){
           $("#modal1").modal('show');
+
       });
   </script>
     <canvas id="canvas"></canvas>
