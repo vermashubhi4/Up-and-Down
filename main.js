@@ -1,9 +1,10 @@
 var canvas=document.getElementById('canvas');
 var ctx=canvas.getContext("2d");
 
-var offset=40;
-canvas.width=window.innerWidth-offset;
-canvas.height=window.innerHeight-offset;
+var offsetW=20;
+var offsetH=40;
+canvas.width=window.innerWidth-offsetW;
+canvas.height=window.innerHeight-offsetH;
 
 var width=canvas.width;
 var height=canvas.height;
@@ -25,6 +26,29 @@ var score=document.getElementById('score');
 var audio = new Audio('bgmusic.mp3');
 var myVar,elems;
 
+//Setting timer
+var hoursLabel =document.getElementById("hours");
+var minutesLabel = document.getElementById("minutes");
+var secondsLabel = document.getElementById("seconds");
+var totalSeconds = 0;
+var vartimer;
+
+function setTime() {
+  ++totalSeconds;
+  secondsLabel.innerHTML = pad(totalSeconds % 60);
+  minutesLabel.innerHTML = pad(parseInt(totalSeconds / 60));
+  hoursLabel.innerHTML =pad(parseInt(totalSeconds/3600));
+}
+
+function pad(val) {
+  var valString = val + "";
+  if (valString.length < 2) {
+    return "0" + valString;
+  } else {
+    return valString;
+  }
+}
+
 
 //var modal=document.querySelectorAll('.modal');
 //init();
@@ -35,6 +59,9 @@ window.addEventListener('DOMContentLoaded', function() {
       opacity:1,
       inDuration:100,
       outDuration:100,
+      backdrop: 'static',
+        keyboard: false,
+        preventScrolling:true
     });
     // var instance = M.Modal.getInstance(elems);
     // instance.open();
@@ -52,25 +79,29 @@ function dismiss()
 
   myVar=setTimeout(checkmusic,100);
   timer=setInterval(move,speed);
+  vartimer=setInterval(setTime, 1000);
   namespan.innerHTML=document.getElementById('fname').value;
+  //Generatingsnake's head
+  ctx.fillStyle="#CAEC67";
+  ctx.fillRect(snakex[0],snakey[0],th,th);
+  ctx.fillStyle="#282c34";
+  ctx.fillRect(snakex[0],snakey[0],2,th);
+  //timer=setInterval(move,speed);
+
+  //Generating food for the first time
+
+  foodx=Math.floor(Math.random()*(canvas.width-15));
+  foody=Math.floor(Math.random()*(canvas.height-15));
+    while(isin(snakex[0],snakey[0],foodx,foody)){
+      foodx=Math.floor(Math.random()*(canvas.width-15));
+      foody=Math.floor(Math.random()*(canvas.height-15));
+  }
+  ctx.fillStyle="#DC7633";
+  ctx.fillRect(foodx,foody,foodth,foodth);
+
 }
 
-
-//Generatingsnake's head
-ctx.fillStyle="#148F77";
-ctx.fillRect(snakex[0],snakey[0],th,th);
-ctx.fillStyle="#282c34";
-ctx.fillRect(snakex[0],snakey[0],2,th);
-//timer=setInterval(move,speed);
-
-//Generating food for the first time
-foodx=Math.floor(Math.random()*(canvas.width-15));
-foody=Math.floor(Math.random()*(canvas.height-15));
-ctx.fillStyle="#D32802";
-ctx.fillRect(foodx,foody,foodth,foodth);
-var lastKey=[right,right];
-
-
+  var lastKey=[right,right];
 //check's which key is pressed
 window.onkeydown=function whichKey(event){
  key = event.keyCode;
@@ -136,11 +167,14 @@ if(timer!=-1){
          move();
          timer=setInterval(move,speed);
          myVar= setTimeout(checkmusic,100);
+         vartimer=setInterval(setTime, 1000);
        }
        else {
         //  console.log("spacey");
          clearInterval(timer);
          timer=0;
+         clearInterval(vartimer);
+         vartimer=0;
          clearTimeout(myVar);
          audio.pause();
        }
@@ -181,7 +215,7 @@ function move(){
      snakey[0]=canvas.height-15;
   }
 //Setting color of snake to green
-  ctx.fillStyle="#148F77";
+  ctx.fillStyle="#CAEC67";
   ctx.fillRect(snakex[0],snakey[0],th,th);
 //Setting color of snake's stripes
 if(lastKey[0]==up || lastKey[0]==down || lastKey[0]==space || lastKey[1]==up || lastKey[1]==down || lastKey[1]==space)
@@ -205,6 +239,7 @@ if((snakex[0]>=foodx && snakex[0]<=foodx+foodth && snakey[0]>=foody && snakey[0]
      eat();
  }
 
+
 var m,n;
 //calls isin to check if snake's head doesn't eat its body
  if(snakex.length>=4)
@@ -222,7 +257,7 @@ var m,n;
    }
  }
 //putting snake's head on screen
- ctx.fillStyle="#148F77";
+ ctx.fillStyle="#CAEC67";
  ctx.fillRect(snakex[0],snakey[0],th,th);
  //putting snake's body on screen
  for(i=snakex.length-1;i>0;i--)
@@ -230,7 +265,7 @@ var m,n;
      snakex[i]=snakex[i-1];
      snakey[i]=snakey[i-1];
 
-   ctx.fillStyle="#148F77";
+   ctx.fillStyle="#CAEC67";
    ctx.fillRect(snakex[i],snakey[i],th,th);
    if(lastKey[0]==up || lastKey[0]==down || lastKey[0]==space || lastKey[1]==up || lastKey[1]==down || lastKey[1]==space)
      {
@@ -270,6 +305,7 @@ function eat()
   count=count+100;//Increasing score byy 100 each time snake eats
   score.innerHTML=count;//setting the score equal to count to be displayed on screen
 
+
   if(count%1500==0 && speed>30)
    speed=speed-10;
 
@@ -281,7 +317,15 @@ function eat()
   //Generating new food
   foodx=Math.floor(Math.random()*(730));
   foody=Math.floor(Math.random()*(500));
-  ctx.fillStyle="#D32802";
+  for(i=0;i<=snakex.length;i++)
+  {
+  if(isin(snakex[i],snakey[i],foodx,foody)){
+    foodx=Math.floor(Math.random()*(canvas.width-15));
+    foody=Math.floor(Math.random()*(canvas.height-15));
+    break;
+ }
+}
+  ctx.fillStyle="#DC7633";
   ctx.fillRect(foodx,foody,foodth,foodth);
 
 }
@@ -296,27 +340,15 @@ $(function() {
 // {
 //   init();
 // }
+
 //End Game
 function die(i)
 {
 
-  // console.log(snakex.length);
-  // console.log(snakey);
-// var j;
-//   for(j=snakex.length;j>=0;j--)
-//   {
-//     console.log("clear snake body");
-//     ctx.fillStyle="#282c34";
-//     ctx.fillRect(snakex[j],snakey[j],th,th);
-//     snakex.pop();
-//     snakey.pop();
-//   }
-  // console.log(snakex);
-  //   ctx.clearRect(foodx, foody, foodth, foodth);
-
   $(window).ready(function(){
       $("#modal2").modal('show');
   });
+  yourscore.innerHTML=count;
   clearInterval(timer);
   clearTimeout(myVar);
   audio.pause();

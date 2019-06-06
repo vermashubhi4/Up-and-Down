@@ -7,33 +7,117 @@ html,body{
 }
 
 #canvas{
-  border: 1px solid #4DCEE8;
+  border: 1px solid #F03903;
   margin-left: 10px;
   margin-top: 10px;
   padding: 0;
 }
-
-#Score1{
-  float:right;
-
-  text-align: center;
+#header{
   margin-top: 0px;
   margin-bottom: 0px;
-  margin-right: 30px;
   padding: 0px;
-  color: #EFF362;
+  color:#17E1E1;
+}
+ul li{
+list-style: none;
+float: left;
+cursor: pointer;
+display: inline;
 
+font-family: "Times New Roman", Times, serif;
+}
+#Score1{
+  margin-top: 0px;
+  margin-bottom: 0px;
+  margin-left: 100px;
+  margin-right: 10px;
+  text-align: right;
+  padding: 0px;
 }
 #name{
- float:left;
-
+  margin-top: 0px;
+  margin-bottom: 0px;
+  margin-left: 50px;
+  margin-right: 100px;
+  padding: 0px;
+  text-align: left;
+}
+#timer{
+  margin-top: 0px;
+  margin-bottom: 0px;
+  margin-left: 400px;
+  margin-right: 450px;
+  padding: 0px;
+  text-align: center;
+}
+/* #header{
+  width: 100%;
+}
+#name{
+  width: 30%;
+  float:left;
   margin-top: 0px;
   margin-bottom: 0px;
   margin-left: 30px;
   padding: 0px;
   color: #EFF362;
 }
+#timer{
+  width: 30%;
+  vertical-align:middle;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  margin-left: 30px;
+  margin-right: 30px;
+  padding: 0px;
+  color: #EFF362;
+}
+#Score1{
+  width: 30%;
+  float:right;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  margin-right: 30px;
+  padding: 0px;
+  color: #EFF362;
 
+} */
+
+#go{
+      text-align: center;
+      font-family: "Comic Sans MS", cursive, sans-serif;
+      font-size: 50px;
+      color:#2C3E50;
+}
+#goscore{
+      text-align: center;
+      font-family: "Courier New", Courier, monospace;
+      color:#2C3E50;
+}
+#yourname{
+  text-align: center;
+  font-family: Verdana, Geneva, sans-serif;
+  font-size: 50px;
+  color:#2C3E50;
+}
+#btn{
+  color:#2C3E50;
+}
+#btn1{
+  color:#2C3E50;
+}
+#hit{
+  color:#2C3E50;
+  font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+#modal2{
+  width:400px;
+  height: 350px;
+}
+#modal1{
+  width:375px;
+  height: 300px;
+}
 .wrapper {
     text-align: center;
 }
@@ -44,10 +128,20 @@ html,body{
 }
 .modal {
   text-align: center;
-  width: 400px;
-  height: 400px;
+  width: 150px;
+  height: 300px;
+ max-width: 100%;
+ max-height: 100%;
  margin: auto;
     position: relative;
 
     top: 25%;
+}
+
+.modal-backdrop {
+   background-color: red;
+}
+
+.label{
+  color: #17E1E1;
 }
